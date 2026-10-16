@@ -1,0 +1,8 @@
+INNER SPACE V50
+- Rebuilt Meditate home as compact Guided / Affirmations / Sleep library.
+- Added 10 original guided sessions: Morning Reset, Clear the Noise, Body Scan, Before the Work, Warm Heart, Sleep Downshift, Steady Before It, Let the Day Go, Rehearse Tomorrow, Deep Stillness.
+- Existing affirmation loops remain organized under their own tab.
+- Added My Place to Room, with one-tap saved destination and six useful Room destinations using the existing Room engine.
+- Phone-first horizontal meditation shelves keep the library from becoming giant vertical bars.
+- Existing Room engine, sound mixer, journeys, routines, space, modes, Claude server, and ElevenLabs integration preserved.
+Validation: 61 inline scripts, 0 syntax errors. Server tests: 58 passed, 0 failed.

@@ -1,0 +1,9 @@
+INNER SPACE V48
+- Five long affirmation loops: Self Love, Courage, Prosperity, Inner Peace, Personal Power.
+- 1 hour / 2 hour duration toggle.
+- Timeline scrubbing plus previous/next, +/-30 seconds, +/-5 minutes, pause/play.
+- Brian/ElevenLabs narration toggle; repeated original Inner Space affirmations.
+- Local soft ambient tone toggle.
+- Meditation library visual polish with symbolic cards and improved phone layout.
+- Room: fixed the missing Jungle sound-world implementation used by V47 Restore/Morning modes; canopy, creek, birds and cicadas now exist as an actual RoomSoundManager world.
+- No copied teacher scripts and no teacher names in product UI.

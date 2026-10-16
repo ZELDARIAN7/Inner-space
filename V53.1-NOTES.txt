@@ -1,0 +1,8 @@
+INNER SPACE V53.1
+Mobile Meditate scroll hotfix built directly from V53.
+- Makes the Meditate layer stage the vertical scroll owner on phone.
+- Enables momentum touch scrolling and pan-y.
+- Keeps horizontal meditation shelves swipeable.
+- Adds bottom safe-area room so the last content is reachable above phone UI.
+- No Room, meditation content, affirmation content, music, Claude, or ElevenLabs logic changed.
+Validation: 63 inline scripts / 0 syntax errors; server tests 58/58.

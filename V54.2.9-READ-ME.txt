@@ -1,0 +1,19 @@
+INNER SPACE V54.2.9 — MEDITATE REBUILD
+
+Built from V54.2.8.
+
+Meditate changes only:
+- Need-first Guided home: Calm, Sleep, Focus, Confidence, Let Go, Reconnect.
+- Full guided library is behind Explore all meditations instead of a long PC list.
+- Continue + Saved + time filters.
+- Guided sessions use real elapsed time and varied quiet periods.
+- No automatic looping at session end.
+- 3/5/10/20/30-style duration choices where appropriate.
+- Living visual families for breath, body scan, focus, release, sleep, walking, open awareness.
+- Brian uses the deep-session ElevenLabs profile at 0.90 speed.
+- Next/Previous cancel the current voice before speaking another cue.
+- Next 2–3 voice cues preload ahead.
+- Music ducks while Brian speaks and returns during quiet periods.
+- Controls fade after 15 seconds and return on tap/click.
+
+Room/Tone/Adept and other V54.2.8 systems were not intentionally redesigned.

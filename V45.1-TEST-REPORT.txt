@@ -1,0 +1,27 @@
+INNER SPACE v45.1 — TEST REPORT
+
+FOUNDATION FIXES
+- Added POST /api/safety.
+- Added POST /api/shift for:
+  focus_target, focus_first_step, focus_blocker,
+  release_question, release_action, release_sentence.
+- Shift outputs are schema-validated and safety-gated before Claude is called.
+- Added a small offline client safety fallback for obvious English crisis/physical-emergency phrases if /api/safety cannot be reached.
+- Added manifest.webmanifest, sw.js, 192/512 icons and a maskable 512 icon.
+- Added application/manifest+json MIME serving.
+- Added viewport-fit=cover for phone safe areas.
+
+AUTOMATED TESTS
+- Server unit tests: 58 passed, 0 failed.
+- Syntax: all server JS, service worker JS, and all 60 inline HTML scripts parse with 0 syntax errors.
+- Mock Anthropic integration: /api/test-model passed; all six /api/shift kinds returned validated data.
+- Safety integration: none -> check -> urgent flow passed; crisis inside /api/shift is intercepted before the model response.
+- Mock ElevenLabs integration: account/voice list loaded, audio route returned audio/mpeg, voice choice saved and status reflected the change.
+- Static PWA files returned the correct MIME types and icon files.
+- Local server binding verified on all interfaces, so http://<PC-IP>:3000 remains available to a phone on the same Wi-Fi when Windows Firewall allows it.
+
+IMPORTANT
+- No real Anthropic or ElevenLabs keys are included in this ZIP.
+- The live provider checks above used local mock providers to verify the wiring without exposing or spending your real keys.
+- On your PC, DEV -> AI health/model test and DEV -> Voice are the final live checks using your own server/.env.
+- A phone can test the app over LAN HTTP. Browser service-worker/PWA installation on a phone requires HTTPS (ordinary LAN HTTP is not a secure context). localhost on the PC is exempt.

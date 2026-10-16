@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Voice Studio</title>
+<style>
+:root{--bg:#07050d;--panel:rgba(20,12,34,.72);--line:rgba(201,166,240,.16);--mist:#ece6f7;--muted:rgba(236,230,247,.58);--violet:#c9a6f0;--rec:#ff5a6a;--ok:#7be0b0}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--mist);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{background:radial-gradient(1200px 700px at 50% -10%,rgba(120,80,190,.22),transparent 60%),var(--bg);min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 80px}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(1.9rem,6vw,2.6rem);margin:.2em 0 .1em;text-align:center}
+.k{text-align:center;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--violet)}
+.lead{text-align:center;color:var(--muted);line-height:1.55;max-width:56ch;margin:10px auto 18px}
+.bar{position:sticky;top:0;z-index:5;background:rgba(7,5,13,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:center;font-size:.8rem;color:var(--muted)}
+.bar b{color:var(--mist);font-weight:500}
+.meter{width:120px;height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ok),#ffd24a,var(--rec));transition:width .06s linear}
+.sec{margin:26px 0 10px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);text-align:center}
+.item{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:14px 16px;margin:10px 0;display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:center}
+.item.done{border-color:rgba(123,224,176,.32)}
+.name{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.syl{font-family:Georgia,serif;font-size:1.6rem;letter-spacing:.04em}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;box-shadow:0 0 8px currentColor;background:currentColor;align-self:center}
+.sub{font-size:.75rem;color:var(--muted)}
+.script{grid-column:1/-1;font-family:Georgia,serif;font-size:1rem;line-height:1.5;color:var(--mist);background:rgba(0,0,0,.25);border-radius:12px;padding:10px 12px;border-left:2px solid var(--violet)}
+.script em{color:var(--muted);font-style:normal;font-family:system-ui,sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:4px}
+.row{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;cursor:pointer;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--mist);padding:.62em 1.1em;font-size:.82rem;letter-spacing:.06em;min-height:42px}
+button:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+button.rec{background:linear-gradient(180deg,#ff7a86,#e24357);border:0;color:#fff;font-weight:600}
+button.rec.on{animation:pulse 1s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(255,90,106,.18)}}
+button[disabled]{opacity:.4;cursor:default}
+.state{font-size:.75rem;color:var(--muted);margin-inline-start:auto}.state.ok{color:var(--ok)}.state.err{color:var(--rec)}
+.tabs{display:flex;gap:8px;justify-content:center;margin:6px 0 2px}
+.tabs button.on{background:var(--violet);color:#1d0f33;border-color:transparent}
+.warn{border:1px solid rgba(255,90,106,.35);background:rgba(60,8,16,.4);border-radius:14px;padding:12px 14px;line-height:1.5;color:#ffd6db;margin:12px 0}
+.tips{color:var(--muted);font-size:.84rem;line-height:1.6;border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:14px 0}
+.tips b{color:var(--mist);font-weight:500}
+@media (prefers-reduced-motion:reduce){button.rec.on{animation:none}}
+</style></head><body>
+<div class="bar"><span>Mic</span><div class="meter"><i id="lvl"></i></div><span id="count"><b>0</b> / 0 recorded</span></div>
+<div class="wrap">
+<div class="k">Inner Space · The Voice</div>
+<h1>Voice Studio</h1>
+<p class="lead">Record the Voice in your own voice. Tap <b>Record</b>, speak or sound, tap <b>Stop</b>. It saves straight into the app — the next time you open a session, it plays you.</p>
+<div id="warn"></div>
+<div class="tips"><b>How to sound good:</b> quiet room, door closed, phone or headset mic a hand's width from your mouth. Leave one second of silence before you start and after you finish. For the sounds, take a full breath and hold one note for 8–12 seconds — the session loops it. Redo as many times as you like; only the last take is kept. After you're done, send the folder <b>assets/guides/voice</b> to Claude and it comes back cleaned, warmer and fuller.</div>
+<div class="tabs"><button data-t="sound" class="on">The sounds (20)</button><button data-t="line">The guide's lines (8)</button><button data-t="say">Intros (optional)</button></div>
+<div id="list"></div>
+</div>
+<script>
+const DATA={"sounds": [{"id": "hum", "fam": "hum", "syl": "Mmm", "name": "The Hum", "how": "Lips closed, teeth apart, jaw soft. Breathe in through the nose, then hum the whole breath out. Feel it in the lips and nose.", "c": "#8a7dff"}, {"id": "om", "fam": "seed", "syl": "Om", "name": "Om", "how": "Three parts in one breath: “Aaa” open in the belly, “Uuu” rounding in the chest, “Mmm” closing in the head. Let the M be the longest.", "c": "#f2e6c8"}, {"id": "hu", "fam": "word", "syl": "Hu", "name": "Hu", "how": "A long exhale shaped as “Huuu”, almost a sigh with a sound in it. Chest open, eyes closed, let the H carry air and the U carry tone.", "c": "#5fe08a"}, {"id": "ah", "fam": "hum", "syl": "Ah", "name": "Ah", "how": "Jaw drops, tongue flat, throat open like a yawn. One long “Aaah” on one note. Do not push; let it fall out.", "c": "#4ab8ff"}, {"id": "lam", "fam": "seed", "syl": "Lam", "name": "Lam", "how": "Short L, then the “am” hummed down into the pelvis. Low pitch. Feel it in the seat.", "c": "#ff5a5a"}, {"id": "vam", "fam": "seed", "syl": "Vam", "name": "Vam", "how": "Teeth touch the lower lip for the V, then open into “am”. Feel the buzz move from lip to belly.", "c": "#ff9a4a"}, {"id": "ram", "fam": "seed", "syl": "Ram", "name": "Ram", "how": "A rolled or soft R, then “am” with the belly firm. The brightest of the seeds; let it have an edge.", "c": "#ffd24a"}, {"id": "yam", "fam": "seed", "syl": "Yam", "name": "Yam", "how": "A soft Y, then “am” sounded in the middle of the chest. Hand on the sternum to feel it.", "c": "#5fe08a"}, {"id": "ham", "fam": "seed", "syl": "Ham", "name": "Ham", "how": "Breathy H into “am”, pitched a little higher, felt at the throat. Keep the neck long.", "c": "#4ab8ff"}, {"id": "sohum", "fam": "word", "syl": "So · Hum", "name": "So Hum", "how": "Think “Sooo” on the inhale, sound “Hummm” on the exhale. The in-breath is silent; only the out-breath is heard.", "c": "#8a7dff"}, {"id": "satnam", "fam": "word", "syl": "Sat · Nam", "name": "Sat Nam", "how": "“Sat” short and clipped like a drum hit, “Naaam” long and open. Often done on the exhale, repeated.", "c": "#f2e6c8"}, {"id": "amen", "fam": "word", "syl": "Amen", "name": "Amen", "how": "Open “Aaa”, then close slowly onto the “mmm” and let the N hum out the nose. Treat it as Om with a door at the end.", "c": "#c58cff"}, {"id": "salam", "fam": "word", "syl": "Sa · laam", "name": "Salam · Shalom", "how": "“Sa” light, “laaam” long with the tongue resting behind the teeth, the M closing softly. Direct it at someone, even absent.", "c": "#5fe08a"}, {"id": "alleluia", "fam": "word", "syl": "Al · le · lu · ia", "name": "Alleluia", "how": "Four syllables, each on its own pitch, the last “ia” held longest. Sing it, do not say it. Badly is fine.", "c": "#5fe08a"}, {"id": "abracadabra", "fam": "lore", "syl": "A · bra · ca · da · bra", "name": "Abracadabra", "how": "Five syllables, one breath, said slower each round until the last is a whisper. Let the word shrink the way the triangle did.", "c": "#8a7dff"}, {"id": "shazam", "fam": "lore", "syl": "Sha · zam", "name": "Shazam", "how": "One short loud burst. Stand up for it. The “sh” is the inhale held, the “zam” is everything let go at once.", "c": "#f2e6c8"}, {"id": "opensesame", "fam": "lore", "syl": "O · pen · se · sa · me", "name": "Open Sesame", "how": "Say it to a closed door in your life. Slowly, once, like you mean it. Then open the door.", "c": "#4ab8ff"}, {"id": "ma", "fam": "hum", "syl": "Ma", "name": "Ma", "how": "Lips together on the M, then fall open into a soft “aaa”. Low, warm, lazy. Repeat it like a lullaby to yourself.", "c": "#8a7dff"}, {"id": "nam", "fam": "word", "syl": "Nam · Myo · ho · Ren · ge · Kyo", "name": "Nam Myoho Renge Kyo", "how": "Fast, even, like a train on tracks — about two seconds per round. Do not sing it; drive it.", "c": "#ffd24a"}, {"id": "om_mani", "fam": "word", "syl": "Om · Ma · ni · Pad · me · Hum", "name": "Om Mani Padme Hum", "how": "Six syllables, low and even, the “Hum” dropping lowest. Slow enough to feel each one; a round every four or five seconds.", "c": "#5fe08a"}], "lines": [{"file": "arrive", "text": "Sit, or stand. Drop the shoulders. Take one deep breath in through the nose… and let it go."}, {"file": "count", "text": "We begin in three… two… one."}, {"file": "listen", "text": "Listen."}, {"file": "yours", "text": "Your turn."}, {"file": "again", "text": "Again. Longer this time."}, {"file": "settle", "text": "Let the sound sit where it lives. Once more."}, {"file": "last", "text": "The last one. Let it fade on its own."}, {"file": "close", "text": "Breathe normally. Notice the place. That is what the sound does — it shows you where you are."}]};
+const $=s=>document.querySelector(s);
+let files=new Map(), tab='sound', cur=null;
+const warn=t=>{ $('#warn').innerHTML=t?'<div class="warn">'+t+'</div>':''; };
+if(location.protocol==='file:') warn('Open this through the app server, not as a file: double-click <b>START-WINDOWS.bat</b>, then go to <b>http://localhost:3000/studio.html</b>.');
+else if(!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) warn('Recording works on the PC itself. Open <b>http://localhost:3000/studio.html</b> on the computer running the app — a phone on Wi-Fi is blocked from the microphone by the browser.');
+async function refresh(){ try{ const r=await fetch('/api/studio/list'); const d=await r.json(); files=new Map((d.files||[]).map(f=>[f.replace(/\.[a-z0-9]+$/,''),f])); }catch{ files=new Map(); } render(); }
+function items(){
+  if(tab==='line') return DATA.lines.map(l=>({key:'v_line_'+l.file,title:'“'+l.text.split(/[.…]/)[0]+'”',sub:'Used in every session',script:l.text,label:'Say'}));
+  if(tab==='say') return DATA.sounds.map(s=>({key:'v_'+s.id+'_say',title:s.syl,c:s.c,sub:s.name+' · intro',script:s.name+'. '+s.how,label:'Say'}));
+  return DATA.sounds.map(s=>({key:'v_'+s.id+'_sound',title:s.syl,c:s.c,sub:s.name,script:'Make the sound: '+s.syl+'. One breath, one note, 8–12 seconds. '+s.how,label:'Sound it'}));
+}
+function render(){
+  const L=items(); const done=L.filter(x=>files.has(x.key)).length;
+  $('#count').innerHTML='<b>'+done+'</b> / '+L.length+' recorded';
+  const host=$('#list'); host.innerHTML='';
+  L.forEach(x=>{ const el=document.createElement('div'); el.className='item'+(files.has(x.key)?' done':'');
+    el.innerHTML='<div class="name">'+(x.c?'<i class="dot" style="color:'+x.c+'"></i>':'')+'<span class="syl"></span><span class="sub"></span></div><div></div><div class="script"><em>'+x.label+'</em><span></span></div><div class="row"><button class="rec">● Record</button><button class="play">▶ Play</button><button class="del">Delete</button><span class="state"></span></div>';
+    el.querySelector('.syl').textContent=x.title; el.querySelector('.sub').textContent=x.sub; el.querySelector('.script span').textContent=x.script;
+    const st=el.querySelector('.state'), rec=el.querySelector('.rec'), play=el.querySelector('.play'), del=el.querySelector('.del');
+    const has=files.has(x.key); play.disabled=!has; del.disabled=!has; st.textContent=has?'✓ saved':''; if(has) st.className='state ok';
+    rec.onclick=()=>toggle(x,rec,st,el); play.onclick=()=>{ const a=new Audio('assets/guides/voice/'+files.get(x.key)+'?t='+Date.now()); a.play(); };
+    del.onclick=async()=>{ if(!confirm('Delete this take?')) return; await fetch('/api/studio/delete?name='+x.key,{method:'POST'}); refresh(); };
+    host.appendChild(el); });
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ if(cur) return; tab=b.dataset.t; document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b)); render(); });
+let stream=null, ctx=null, an=null, raf=0;
+async function mic(){ if(stream) return stream;
+  stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false,channelCount:1}});
+  ctx=new (window.AudioContext||window.webkitAudioContext)(); an=ctx.createAnalyser(); an.fftSize=1024; ctx.createMediaStreamSource(stream).connect(an);
+  const buf=new Float32Array(an.fftSize); const tick=()=>{ an.getFloatTimeDomainData(buf); let m=0; for(const v of buf) m=Math.max(m,Math.abs(v)); $('#lvl').style.width=Math.min(100,m*140)+'%'; raf=requestAnimationFrame(tick); }; tick(); return stream; }
+function pickType(){ for(const t of ['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4']) if(window.MediaRecorder&&MediaRecorder.isTypeSupported(t)) return t; return ''; }
+async function toggle(x,btn,st,el){
+  if(cur&&cur.x!==x) return;
+  if(cur){ cur.rec.stop(); return; }
+  try{ await mic(); }catch(e){ st.className='state err'; st.textContent='Microphone blocked — allow it in the address bar.'; return; }
+  const type=pickType(); const rec=new MediaRecorder(stream,type?{mimeType:type,audioBitsPerSecond:128000}:undefined); const chunks=[];
+  rec.ondataavailable=e=>{ if(e.data.size) chunks.push(e.data); };
+  const t0=Date.now(); const timer=setInterval(()=>{ st.className='state'; st.textContent='● '+((Date.now()-t0)/1000).toFixed(1)+' s'; },100);
+  rec.onstop=async()=>{ clearInterval(timer); btn.classList.remove('on'); btn.textContent='● Record'; cur=null;
+    const blob=new Blob(chunks,{type:(rec.mimeType||type||'audio/webm')}); const base=blob.type.split(';')[0];
+    if(Date.now()-t0<800){ st.className='state err'; st.textContent='Too short — try again.'; return; }
+    st.className='state'; st.textContent='Saving…';
+    try{ const r=await fetch('/api/studio/save?name='+x.key,{method:'POST',headers:{'content-type':base},body:blob}); const d=await r.json(); if(!r.ok) throw new Error(d.error||r.status); await refresh(); }
+    catch(e){ st.className='state err'; st.textContent='Not saved: '+e.message; } };
+  cur={x,rec}; rec.start(250); btn.classList.add('on'); btn.textContent='■ Stop'; el.scrollIntoView({block:'center',behavior:'smooth'});
+}
+refresh();
+</script></body></html>

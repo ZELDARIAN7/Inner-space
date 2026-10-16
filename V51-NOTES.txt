@@ -1,0 +1,8 @@
+INNER SPACE V51
+- Affirmation cadence shortened from 12s to 7s per phrase to remove long silent gaps.
+- Affirmation music engine gain corrected: previous synthesized pad was technically on but effectively inaudible due to stacked ultra-low gain values.
+- Music AudioContext resume handling improved for mobile/browser suspended audio contexts.
+- Ground Room mode replaced with a robust button-led 5-4-3-2-1 flow to eliminate the unstable canvas/tap path.
+- Room mode launcher now has an error boundary: a mode failure returns safely to Room instead of leaving a broken screen.
+- Existing Room, Meditate, Claude, ElevenLabs, PWA and server architecture retained.
+Validation: 58/58 server tests passed; inline JS syntax checked.

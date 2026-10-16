@@ -1,0 +1,82 @@
+INNER SPACE V54 — ROOM UPGRADE
+
+START
+Extract the complete ZIP first. Use START-WINDOWS.bat as before.
+The application file remains inner-space.html. The existing launch scripts
+are retained and work from the extracted inner-space-v54 folder.
+This is a separate updated copy; your supplied ZIP is unchanged.
+
+CHANGES
+- Removed the Room opening My Place block.
+- Removed Shelter and Night from the Modes list. Drift is retained.
+  Existing saved Night/Shelter shortcuts safely route to Drift/Restore.
+  Night remains an ambience/world within the existing sound library.
+- Release becomes Let It Out: breath, muscle release, reflection, next step.
+- Ground becomes Back to Here: working sensory prompts, alternate senses,
+  individual observation counting, skips and a closing check-in.
+- Pulse becomes Reset: seated/standing gentle movement, without camera access.
+- Focus becomes One Thing: task, first step, timer, parked thoughts, outcome,
+  optional local saving and a two-minute break.
+- Nap becomes Rest: duration, ambience, alarm preview, settling prompt,
+  dimming/fade, pause/resume and gentle return.
+- Walk becomes Clear Your Head: paced prompts, sparse optional voice,
+  visual-only option; no GPS or step tracking.
+- Untangle: worry/decision/conflict/overload paths, clarity card and check-ins.
+- Unwind rebuilt: selected body areas, seated/lying posture, gentle release
+  or attention-only approach, 3/7/12 minutes and optional device voice.
+- Create: ink, sand, symmetry, palettes, width, fading, optional tones,
+  undo/redo, stones/patterns, clear/dissolve, fullscreen and PNG export.
+- Close the Day: quick/full/hard-day paths, parking tasks, optional memory,
+  saved first step shown in the Room, optional continuation to Drift.
+- Your Space: saved lighting/ambience, quiet view, stars, individual removal,
+  confirmed clearing, and saved entries with edit/delete/check-in actions.
+  Existing sky objects are preserved; the object manager shows the latest 20.
+- Category filters and editable favourites.
+- Fixed hidden primary controls, corrected malformed V53.4 desktop CSS,
+  guarded audio switching against abandoned asynchronous starts, and updated
+  the service-worker cache version.
+
+DATA AND LIMITS
+New journal entries save only when explicitly requested, in this browser's
+local storage. They are not encrypted; shared-device users can access them.
+The latest 100 entries are retained. Clearing browser data removes them.
+Drawing is session-only unless exported. Undo retains up to 15 snapshots.
+New guided prompts are English. Device speech availability depends on the
+browser/OS and installed voices. Visual guidance does not require voice.
+Keep the app open for timed rest and walk cues. A sleeping or locked device
+may delay a web timer; use a separate alarm when exact waking time matters.
+No new AI/API service is required for these Room modes.
+Existing AI-backed areas still use the original server configuration.
+
+VALIDATION
+All 63 executable inline scripts parsed successfully.
+Existing server suite: 58 passed, 0 failed.
+Headless Chromium desktop (1365x900) and mobile-width (390x844) checks passed.
+Screenshots inspected for Ground, mode grid and Create.
+Timed completion tested with an accelerated browser clock.
+No JavaScript page exceptions in the exercised flows.
+Real Windows speakers, phone lock-screen behaviour and native device voice
+were not tested on physical hardware.
+
+BROWSER CHECKS
+- My Place / Night / Shelter removed
+- Category and saved favourites
+- Ground completes all 15 observations
+- Ground alternate and skip paths
+- Untangle completes and safely saves literal text
+- Close the Day save and home continuity
+- Saved entries edit / check-in / delete
+- Focus pause / resume / distraction / finish / break
+- unwind guided flow
+- release guided flow
+- pulse guided flow
+- walk guided flow
+- Nap setup / preview / pause / end / audio stop
+- Create tools / undo / redo / PNG
+- Your Space objects / ambience exclusivity / quiet view / exit
+- 390px mobile width and scroll reachability
+- Nap deadline completion with accelerated clock
+- Focus deadline completion with accelerated clock
+- Guided session timed completion
+- Pointer drawing changes canvas
+- No browser JavaScript exceptions

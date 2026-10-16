@@ -1,0 +1,13 @@
+{
+  "name": "inner-space-prototype-server",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests.mjs",
+    "convo": "node ../tests/convo-v32.mjs"
+  }
+}

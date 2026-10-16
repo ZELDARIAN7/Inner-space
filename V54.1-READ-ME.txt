@@ -1,0 +1,41 @@
+INNER SPACE V54.1 — ROOM DAILY RETURN PASS
+
+BASE
+Built from the user-supplied inner-space-v54-room-upgrade(1).zip. Room work only; the rest of the app is preserved.
+
+NEW DAILY RETURN FEATURES
+1) TODAY'S DOOR
+- A two-minute Room micro-practice that changes every calendar day.
+- 12 original Doors rotate day by day: listening, vision, touch, effort release, depth, colour, ordinary appreciation, stillness, wide vision, a clear next move, temperature, and more.
+- No score and no artificial penalty for missing a day.
+- Completing the Door once that day adds a small light to Your Space.
+- Home shows a gentle day rhythm when several consecutive Doors were completed.
+- A completed Door can be replayed without adding duplicate daily lights.
+
+2) TOMORROW NOTE
+- Leave one short line for tomorrow.
+- It stays sealed today and becomes a reveal card when the Room is opened on or after the due day.
+- After reveal, the user can keep it in Saved Moments or write the next note.
+- Stored only in this browser/local storage and explicitly described as not encrypted.
+
+ROOM AUDIT / FIXES
+- Fixed the page title/version from the stale V53.4 label to V54.1.
+- Updated the Room tour so it no longer tells users Night is a mode after Night was removed from the mode grid.
+- Updated mode subtitles for clearer intent (Restore, Morning, Breathe, Drift).
+- Fixed Routine setup defaulting to hidden legacy Night. New routines now default to Drift.
+- Updated Routine labels to V54 names: One Thing, Rest, Clear Your Head.
+- Routine popups no longer appear on top of V54 guided Room experiences.
+- Mode data-state is cleared when returning home so modal styling cannot leak back into the Room.
+- Favourites now show a useful empty-state message and Edit Favourites has a Cancel path.
+- Added compact polish for the mode/filter area and the new daily cards on desktop and phone.
+- Bumped the service-worker cache version so installed copies can pick up this build.
+
+VALIDATION
+- 63 inline JavaScript blocks: 0 syntax errors.
+- Service worker syntax: pass.
+- Existing server test suite: 58 passed, 0 failed.
+- ZIP integrity: run before delivery.
+- Automated browser rendering could not be completed in the current execution environment because browser navigation is blocked by administrator policy; no claim of physical phone/PC rendering is made.
+
+RUN
+Use START-WINDOWS.bat as before. If you already have a private server/.env with your Anthropic and ElevenLabs settings, copy that .env into this build's server folder. Do not share or package API keys.

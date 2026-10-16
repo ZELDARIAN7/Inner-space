@@ -1,0 +1,21 @@
+INNER SPACE — HOME CINEMATIC PREVIEW
+
+Base: clean V54.2.9.3.
+Scope: home presentation only.
+
+Preserved intentionally:
+- opening dot / intro flow
+- living emerald Orb and its existing behavior
+- all destination routing and experience logic
+- Room internals and audio
+- Tone / Hz logic
+- Meditate / Deep Session logic
+- Origin, Guides/Adept, Talk and Memory logic
+
+Changed:
+- responsive cinematic home cards for desktop and phone
+- embedded optimized visual art for the existing home destinations
+- visual hierarchy / spacing / typography of home only
+- For You label presented as Daily Path while retaining its existing dynamic action
+
+No API keys or .env files included.

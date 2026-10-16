@@ -1,0 +1,19 @@
+INNER SPACE V47 — MEDITATE + ROOM REBUILD
+
+Built from the stable V45.1 base (not V46).
+
+Meditate:
+- Visible hub renamed Meditate.
+- Five new original guided sessions: Become, Inner Mirror, Ground Current, Still Point, Return to the Body.
+- Written as original Inner Space scripts. Research influences were used as technique references; no teacher names or copied paid scripts appear in the product.
+- Uses existing server voice/player path, so configured ElevenLabs voice can narrate.
+
+Room:
+- Preserved the full V45.1 Room engine and UI.
+- Forest sound world is presented as Jungle; its existing layered engine supplies canopy, tropical-bird, cicada/insect and creek textures.
+- Added Restore, Shelter, and Morning mode shortcuts, backed by the proven existing journey engine instead of a blank replacement screen.
+- Existing worlds, mixer, 3D, haptics, weather matching, journeys, routines and Your Space remain intact.
+
+Validation:
+- 60 inline HTML scripts: 0 syntax errors.
+- Server tests: 58 passed, 0 failed.

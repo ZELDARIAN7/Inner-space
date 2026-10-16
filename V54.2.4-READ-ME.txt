@@ -1,0 +1,10 @@
+INNER SPACE V54.2.4
+
+Room cleanup requested by user:
+- Removed Close the Day, Untangle, and One Thing/Focus from the Room home and new routines.
+- Clear Your Head setup rebuilt: no literal HTML text bug, cleaner duration/guidance choices, same full guided walk engine.
+- Create rebuilt as a simple audiovisual playground: Play (tap light into sound + loop), Living World (animated procedural worlds), Draw (optional), Surprise Me, palettes, sound, save.
+- Unwind and Let It Out pacing fixes preserved.
+- Back to Here preserved.
+
+API keys are not bundled. Keep server/.env private.

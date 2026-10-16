@@ -1,0 +1,13 @@
+INNER SPACE V54.2 — ROOM REBUILD
+
+Built from V54.1.
+
+Room fixes:
+- Heartbeat sound now starts immediately and includes speaker-safe mid-frequency thumps.
+- Unwind rebuilt: no body avatar; real timed body scan; richer narration; server voice/Brian when configured; music + Room ambience; animated full-screen visuals; clean Next/Pause/Voice/Music controls.
+- Let It Out rebuilt as a distinct guided release experience with its own visual language, longer guidance, interactive release burst, ambience/music, and optional reflection at the end.
+- Back to Here routes back to the older immersive 5-4-3-2-1 grounding flow.
+- Create preserved and expanded with Glow Ribbon, Stardust, 8 palettes, glow strength, 10/12-way symmetry, Cosmic Bloom, Scatter Stars, and Surprise Me.
+- Voice helper is race-safe: Next/Back/leave stops pending Brian audio before the next line can speak.
+
+Your API keys are not included. Keep using your private server/.env.

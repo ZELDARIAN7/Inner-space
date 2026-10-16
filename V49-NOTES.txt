@@ -1,0 +1,10 @@
+INNER SPACE V49
+- Rewrote all 10 affirmation loops in positive-form language.
+- Added Confidence, Vitality, Success, Gratitude, Love & Connection.
+- Kept Self Love, Courage, Prosperity, Inner Peace, Personal Power.
+- 1-hour / 2-hour loop, seek timeline, previous/next, +/-30s, +/-5m, Brian toggle.
+- Replaced the simple tone bed with a softer evolving four-tone music bed and MUSIC toggle.
+- Phone-first affirmation UI polish and safe-area/touch refinements.
+- Room: added Jungle Sanctuary (18m) and Rain Cocoon (30m) journeys using the existing RoomSoundManager worlds.
+- Existing Room modes, mixer, worlds, routines, journeys and audio architecture preserved.
+- Validation: 61 inline scripts / 0 syntax errors; server tests 58/58 passed.

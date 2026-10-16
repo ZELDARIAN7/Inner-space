@@ -1,0 +1,17 @@
+INNER SPACE V54.2.9.1 — MEDITATE QA PASS
+
+Built directly from V54.2.9.
+
+Targeted fixes only:
+- 3-Minute Reset now defaults to 3 minutes.
+- Repeat Intentionally always restarts from 0:00 instead of inheriting a resumed timestamp.
+- Pause cannot allow a still-loading ElevenLabs line to start speaking while the session is paused; if narration was interrupted, that cue is replayed on resume.
+- Walking Presence uses walking-specific cues instead of stationary focus cues and includes route/traffic/terrain awareness.
+- Added gentle opt-out/safety language: eyes may stay open; users can return to feet/sounds/room or stop if inward attention is uncomfortable.
+- Sleep sessions carry a safe-rest/not-driving note and use softer music levels.
+- Body/open-awareness cue banks include grounding alternatives.
+- Reworded a few potentially pressuring prompts and removed the clinical-sounding “settle the nervous system” / “somatic release” labels.
+- Removed Body Scan from the Sleep shelf because its ending is a return-to-alertness body scan, not a sleep-specific ending.
+- “For You Today” renamed “Today’s Practice”; it is a daily rotation, not personalization.
+
+No Room, Tone, Adept, Before I Go, Decide, Create, or other app systems were redesigned in this pass.

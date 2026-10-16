@@ -1,0 +1,10 @@
+INNER SPACE V54.2.9.3 — MEDITATE POLISH
+
+Built from V54.2.9.2 only. Room, Tone, Adept and other areas are unchanged.
+
+Changes:
+- Opening meditation text now remains visible for about 9 seconds before the first scheduled guidance cue.
+- Replaced the old rhythmic/tonal meditation bed with an original continuous ambient pad: no percussion, no repeating bell/pluck attack, slow warm drone + soft air texture.
+- Full ZIP contains an 8-minute ambient track that loops quietly; standalone HTML contains a matching 90-second fallback excerpt.
+- Meditation home/player UI refreshed: modern system typography, softer glass, larger immersive visuals, bottom control dock, cleaner cards, less old-style bordered UI.
+- Existing locked close-guidance pacing from V54.2.9.2 remains intact.

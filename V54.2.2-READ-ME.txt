@@ -1,0 +1,13 @@
+INNER SPACE V54.2.2
+
+Base: V54.2.1.
+Scope: Let It Out pacing only, plus version/cache bump.
+
+CHANGES
+- Let It Out now has multiple short Brian follow-up cues inside every phase.
+- 10-minute sessions use the densest guidance: up to five follow-up cues per phase.
+- 7-minute sessions use three follow-up cues per phase.
+- 4-minute sessions use one follow-up cue per phase so short sessions do not feel overstuffed.
+- Gap between spoken cues is shortened to roughly 3.0-3.8 seconds depending on session length.
+- Existing preloading/race-safe voice handling remains in place, so Next/phase changes cancel old speech instead of stacking voices.
+- Music, visuals, Release one piece interaction, Unwind, Create, Room, Meditation and Adept are otherwise unchanged.

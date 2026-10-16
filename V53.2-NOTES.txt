@@ -1,0 +1,10 @@
+INNER SPACE V53.2
+
+- Based directly on V53.1 stable mobile-scroll build.
+- Guided meditation UI is unchanged.
+- Fixed guided sessions so guidance advances automatically.
+- Each line is spoken, followed by a short 7-second integration pause, then the next line starts automatically.
+- A visible next-guidance countdown confirms the session is running.
+- Pause stops narration and auto progression; Play resumes from the current guidance.
+- Back/Next remain manual skip controls only.
+- Existing bundled meditation music and Room code were not redesigned.

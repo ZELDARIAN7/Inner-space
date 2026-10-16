@@ -1,0 +1,21 @@
+INNER SPACE V54.2.5
+
+Added two flagship Room modes:
+
+BEFORE I GO
+- Meeting, presentation, difficult talk, date/social, gym, work, custom.
+- 2 / 4 / 7 minute guided launch.
+- Brian-compatible narration with race-safe Next cue and voice toggle.
+- Procedural threshold/portal visuals that brighten through the session.
+- Situation-specific carry line and GO ending.
+- Remembers the last use and asks for a lightweight outcome check on the next visit.
+
+DECIDE
+- Two or three user-written options.
+- Fast / Deeper / Full reflection depth.
+- Interactive decision chamber with animated paths, fog, tap-reactive light, and Brian guidance.
+- Uses only the user's own responses to show a lean; explicitly not a verdict.
+- Captures one next useful move and can save it to Saved Moments.
+
+Existing Room modes and V54.2.4 Create/Clear Your Head fixes are preserved.
+API keys are not bundled. Keep server/.env private.

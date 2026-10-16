@@ -1,0 +1,13 @@
+INNER SPACE V54.2.9.2 — MEDITATE PACING + MUSIC FIX
+
+LOCKED PROJECT RULE
+Guided meditation never uses giant unexplained dead-air gaps. Brian stays present with short, technique-appropriate anchors. Silence remains part of meditation, but it is capped and intentional.
+
+FIXES
+- Every guided duration uses dense, duration-aware pacing.
+- 15-minute sessions now normally cue about every 18–23 seconds, rather than minute-plus silence.
+- Main meditation lines remain spread across the full session; short anchors fill long spaces.
+- Ambient music starts immediately on the user's Begin tap before async voice preparation.
+- Standalone HTML contains an embedded MP3 fallback; full ZIP still includes the normal audio asset.
+- Music is more audible and ducks under Brian instead of disappearing.
+- Existing V54.2.9.1 meditation safety rules remain.

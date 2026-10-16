@@ -1,0 +1,9 @@
+INNER SPACE V53
+Built from V51 stable base (V52 discarded).
+- Added a real bundled 96-second looping ambient music file at assets/audio/inner-space-ambient.mp3.
+- Affirmations now use that file-backed music player instead of the prior oscillator-only pad.
+- Guided meditations also start the same music bed and have a Music toggle.
+- Expanded guided library from 10 to 20 original sessions.
+- Reorganized Guided into Right Now, Mind & Confidence, Self & Heart, Deeper Practice, plus Classics.
+- Polished Meditate cards/player for phone without changing Room code.
+- Room is intentionally left at the V51 stable implementation.

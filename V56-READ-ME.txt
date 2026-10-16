@@ -1,0 +1,79 @@
+INNER SPACE V56.4 — THE MEDITATE ROOM, BRIAN STAYS WITH YOU, SCREEN OFF TOO
+
+Built on V55 (the home in light, the startup freeze fixed). Everything outside Meditate and the home is unchanged.
+
+THE MEDITATE ROOM — NEW
+- The scene. The cavern lake on PC, the stone arch on phones, under everything. On PC the living Orb takes
+  the place of the painted one and breathes with the session; on phones the painted Orb and the figure in
+  front of it are the room, and the glow around them breathes.
+- The home: a glass panel (PC) / a sheet that rises over the scene (phone). Same choices as before —
+  Today's practice, choose by need, how much time, continue / saved, the full library — plus Affirmations
+  and Sleep tabs.
+- The player: nothing but the words, the time and a small dock. Before you begin you choose the length and
+  how close the voice stays:  Close · Normal · Spacious.
+- NO MORE DEAD AIR. The old player put the cues on a fixed grid (18–32 seconds apart) no matter how long Brian
+  took, and the first words came after 9 seconds. Now the quiet is measured from the moment Brian finishes,
+  and you choose it before you begin:
+     Near      about 3 seconds — Brian is with you almost the whole time (the default)
+     Normal    6–9 seconds
+     Spacious  12–18 seconds
+  (sleep sessions add a little; the first words come after 2.5 s). The next lines are fetched while the current
+  one plays, so there is no fetch gap either.
+- GUIDED JOURNEYS. To fill that much time without repeating himself, Brian now follows an ordered script for each
+  kind of meditation — a real head-to-toe body scan (58 lines), breath, open awareness, focus, confidence,
+  release, sleep, walking — read in order across the session between the meditation's own lines, with
+  on-topic supporting cues in between. Previous / Next still work.
+- Sound that never ends: Ambient (the composed track, looping), Rain, Deep drone, Night, Bowls — the last
+  four are generated live, so there is no loop seam and no file. One volume. Ducks under the voice. Your
+  choice is remembered. A soft bowl marks the end of a session.
+- Affirmations: every set reviewed; 12 lines added to each of the ten sets (30 each now), and two new sets —
+  Rest (24, for the night) and Focus (24). Brian reads a line, leaves a short quiet (Flowing · Easy · Slow),
+  then the next — endlessly, or for 1 or 2 hours. Voice can be switched off to read along with the music.
+- Arabic, Spanish and Armenian for the whole room: names, descriptions, every spoken cue and affirmation, and
+  the UI (about 1,000 new lines per language).
+
+V56.2 — FIXES
+- Phone home: the sheet now starts higher, so the choices are on screen without pulling it up.
+- Screen off / app in the background: the session clock now runs on wall-clock time, Brian's lines play through one
+  media element that the Begin tap unlocks (so the phone treats it as media), the screen stays awake during a
+  session, and while the screen is off a nearly silent copy of the composed track keeps the audio session alive
+  when a generated bed or Silence is chosen. Lock-screen controls show the meditation's name.
+- "The voice stopped speaking after I came back": the affirmation player never asked the server which voice to
+  use, and a single failed fetch used to switch the whole app to the device voice. Both fixed.
+- The Tone, screen off: the lock-screen loop was 8 kHz and only ONE second long for whole-number frequencies, so
+  the phone looped it with a tiny gap every second — the "toot, toot". It is now 16 kHz and at least 40 seconds,
+  cut exactly on whole cycles.
+- The frequencies were checked: solfeggio tones 174–963 Hz, planetary tones 111–256 Hz, 40 and 55 Hz lows,
+  binaural carriers 90–240 Hz with beats 0.5–40 Hz — all within normal hearing and at moderate level (peaks well
+  under full scale); the wording stays honest ("not medical treatment").
+
+V56.3 — SCREEN OFF, AGAIN
+- A phone only keeps a web page (and its sound engine) running in the background while a media element is playing.
+  Now a looping, almost silent copy of the music track plays for the whole session whenever Rain / Drone / Night /
+  Bowls / Silence is chosen (the composed Ambient track already is a media element), so the page, the bed and
+  Brian keep going with the screen off.
+- Brian's lines now play through the same audio engine as the bed (decoded once per line), not through a new
+  media element each time — the phone cannot block those.
+- Lock-screen buttons: Meditate and Affirmations answer play / pause / next / previous / stop; the Tone answers
+  play / pause (it used to stop the session on "pause").
+
+V56.4 — SELF-HEALING VOICE + DIAGNOSTICS
+- If a line cannot play, the player says why on the status line in plain words (cannot reach the server / tap the
+  screen to resume / audio engine stopped), retries the same line, and any tap on the screen restarts the audio
+  engine and the voice. Coming back to the app resumes the engine and refetches the next lines.
+- Lines are fetched 6 ahead, so a phone that turns its Wi-Fi off with the screen does not run dry.
+- Sound menu → bottom: a small diagnostics block (engine state, voice mode, bed, last events) to screenshot.
+
+GITHUB / RENDER (V56.4)
+- inner-space.html is now a 7 MB "web build": the big videos and pictures live in assets/ as files. GitHub's
+  website refuses any file over 25 MB, which is why the 26 MB page silently never replaced the old one.
+  Upload the WHOLE folder (assets/, icons/, server/, sw.js, manifest.webmanifest, inner-space.html).
+- inner-space-standalone.html is the all-in-one page (26 MB) for double-clicking without a server. Do not upload
+  it to GitHub through the website.
+- sw.js has a new version name, so phones drop the old cached copy. If a phone still shows the old app once:
+  close all its tabs of the site, or open the site once in a private tab.
+- On Render: Build command empty, Start command: cd server && node server.js. Put ANTHROPIC_API_KEY,
+  ELEVENLABS_API_KEY and ELEVENLABS_VOICE_ID in Render → Environment (never in GitHub).
+
+INSTALL
+Unzip. Copy server\.env from your old folder into the new server folder. Double-click START-WINDOWS.bat.

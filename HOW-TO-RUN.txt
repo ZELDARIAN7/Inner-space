@@ -1,0 +1,122 @@
+INNER SPACE v56.4 — the Meditate room + the home in light. See V56-READ-ME.txt
+
+INNER SPACE v45.1 — foundation fix
+
+
+
+NEW IN V45.1
+- Fixed the missing /api/safety and /api/shift server routes used by Warrior/Shift.
+- Shift now uses Claude for Focus/Release where the UI expected it, with strict JSON validation and curated offline fallbacks.
+- Added an offline client safety fallback so an obvious crisis/emergency phrase is not silently ignored if the safety route is unreachable.
+- Finished the PWA shell: manifest, service worker, 192/512 icons and maskable icon.
+- Added the correct manifest MIME type on the local server.
+- Voice switching remains server-side and local-only for saving choices; ElevenLabs keys stay in server\.env.
+
+NEW IN V45
+- The whole app in Arabic, Spanish and Armenian: about 14,000 new translated lines
+  (Breather, Warrior, Adept, Shadow, Room, Table, Voice, Tone, Shift, Deep Session...).
+- The intro: the breathing light is smooth from the first second; at the end the film's
+  orb flies into the app's orb and the home buttons rise in one by one, no jump.
+- Faster: the orb and the background effects rest while you scroll or when they're hidden,
+  no heavy blur behind cards, the home video stops when nobody sees it. The Breather
+  scrolls smoothly on phones (no more flicker or page pull-down).
+- Origin: the whole chart reading in Arabic, Spanish and Armenian, offline, and a new
+  sky wheel with zodiac signs in colour.
+
+NEW IN V44
+THE WARRIOR
+- The home starts with TODAY: three seals.
+    Body  = a training session, The Test, or three one-minute bursts of "Get me moving".
+    Nerve = one trial in the arena (about a minute).
+    Word  = give your word in the morning, keep it.
+  A row of dots shows your week. A missed day changes nothing.
+- THE TEST (new door): push-ups, squats in 60 seconds, a plank. Every two weeks.
+  It shows your numbers going up.
+- Shift my state: a clear grid with an icon for each state. Angry now cools you down
+  first (a 2024 review of 154 studies found that is what works). Nervous adds the
+  double-breath sigh. Overthinking lets you park the worry and meet it later.
+- Ask the Warrior knows your battle, your move, your word and your training, and can
+  turn what you say into "your move". (Needs the new server folder from this zip.)
+- Gold coach figures. The top-left back button returns to the Warrior home.
+THE ADEPT
+- The home shows today's practice for your path and your week. First visit: "Start here".
+- Every path: Today's practice (changes with your days and the hour), an honest tag
+  (Proven / Debated / Unproven / Experimental — Inner Fire says "Heat: proven": the
+  body heat is measured, the fire is not), a level ladder, and a chart of your tests
+  against chance.
+- New drill: SSILD (Lucid Dreaming, in the night after waking).
+
+INSTALL THIS VERSION
+Unzip. Copy server\.env from your old folder into the new server folder (it keeps your
+Anthropic and ElevenLabs keys). Double-click START-WINDOWS.bat.
+
+ONE TIME
+1. Install Node.js (the LTS version) from https://nodejs.org
+2. Unzip this folder somewhere easy, like your Desktop.
+
+EVERY TIME
+3. Double-click START-WINDOWS.bat
+   - The first time, it asks for your Anthropic key. Paste it, press Enter.
+     It is saved only on your PC, in server\.env. Never send it to anyone.
+   - Your browser opens http://localhost:3000 by itself.
+4. Keep the black window open while you use the app. Close it to stop.
+
+ON YOUR PHONE (same Wi-Fi as the PC)
+- On the PC, open Command Prompt and type: ipconfig
+  Find "IPv4 Address", for example 192.168.1.23
+- On the phone's browser, open: http://192.168.1.23:3000
+  (If Windows asks about the firewall the first time, click Allow.)
+
+WHAT'S REAL NOW
+Talk, Ask the Warrior and Deep Session answer with the real Claude.
+If the key is missing or the internet drops, they fall back to the offline
+versions, so nothing breaks.
+
+REAL VOICE (ELEVENLABS)
+Before you start: on elevenlabs.io, make sure the voice you want is in
+"My Voices" (from the Voice Library, click "Add to my voices").
+1. Double-click START-WINDOWS.bat. It asks once:
+   - "ElevenLabs key:"  paste your key (elevenlabs.io -> profile -> API Keys), Enter.
+   - "Voice name:"      type the voice name as it is in My Voices, Enter.
+2. That's it. The black window says:  Voice: ElevenLabs · <the name>
+To change the key or the voice later: double-click SET-VOICE.bat.
+You can also hear and switch voices in the app: tap INNER SPACE 7 times -> DEV -> Voice.
+Every line is made once and saved in server\cache\voice, so a meditation you do
+every day costs ElevenLabs characters only the first time.
+
+WRONG KEY?
+Delete the file server\.env and run START-WINDOWS.bat again.
+
+The single file inner-space.html still works on its own (offline mode)
+if you open it directly, like before.
+
+RECORD THE VOICE IN YOUR OWN VOICE
+- With the app running (START-WINDOWS.bat), open on the PC:  http://localhost:3000/studio.html
+  (or in the app: Guides -> The Voice -> "Record your voice")
+- Tap Record, sound it, tap Stop. It saves straight into assets\guides\voice.
+  The next session plays you instead of the tone.
+- Record on the PC itself (laptop mic or a headset). A phone on Wi-Fi can't use the
+  microphone over http - that's the browser's rule, not the app's.
+- When you've recorded a few, zip the folder assets\guides\voice and send it to Claude:
+  it comes back cleaned (noise, hum, room), warmer, and the chants with a stone-room depth.
+
+THE SHADOW (Guides -> The Shadow)
+- Works offline. With your key in, the one question it asks is written by Claude from your own words.
+- Lock it with a PIN on first open: on this PC (localhost) everything is sealed with the PIN.
+  Forget the PIN and the Shadow has to be wiped - nobody can open it.
+- To lie down and listen: Meet a part -> pick one -> keep "Dark screen" on -> Begin.
+  In Chrome you can pick a better device voice with "Choose the voice".
+
+DEVELOPER MODE (for you)
+- Tap the INNER SPACE logo (top-left) 7 times quickly. A gold DEV chip appears bottom-right.
+  Tap it: AI health + real model test, open any screen, fast timers, clear data per module, wipe.
+- It also shows the AI LIVE/OFFLINE badge, the Warrior's Developer screen, the Lose-the-weight door.
+- 7 taps again turns it off. (?dev=1 in the address also turns it on.)
+
+KEEP YOUR KEY when you install a new version: copy the file server\.env from the old folder.
+
+PWA / INSTALL
+- On the PC, http://localhost:3000 is a secure browser context and the service worker can install/cache the app.
+- On a phone, http://<PC-IP>:3000 works for testing on the same Wi-Fi, but browsers do not treat ordinary LAN HTTP as a secure context.
+  For a true installable phone PWA (service worker/offline install), serve/deploy the same folder over HTTPS.
+- Voice Studio recording and DEV voice selection are intentionally local-PC actions. The normal app and ElevenLabs playback can still be used from the phone.

@@ -1,0 +1,10 @@
+INNER SPACE V54.2.3
+
+Room changes
+- Back to Here rebuilt as an immersive 5-4-3-2-1 grounding exercise with animated background, ambience, Brian option, active Found One interaction, progress and timer.
+- Rest removed from the visible Room and new routine choices. Legacy saved Rest routines open Unwind instead.
+- Clear Your Head rebuilt as a full-screen guided walking reset with Brian, regular cues, animated path, timer/progress, Pause/Next/Voice/End controls, and safety reminders.
+- Create simplified to 3 drawing modes + 6 palette dots; advanced controls hidden by default. Surprise Me now has 14 distinct generators and can combine two.
+- Service worker cache bumped.
+
+API keys are not included. Keep your existing server/.env private.

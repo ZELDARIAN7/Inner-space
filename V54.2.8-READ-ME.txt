@@ -1,0 +1,16 @@
+INNER SPACE V54.2.8 — TONE BACKGROUND PATCH
+
+Base: V54.2.6 cleanup build.
+
+Only The Tone / Hz room was changed:
+- Removed the Infinite duration. Tone sessions are 10 / 20 / 30 minutes only.
+- Preserved the original WebAudio oscillator engine and its foreground sound.
+- Leaving The Tone no longer stops an active tone.
+- Added a persistent mini player across Inner Space with a STOP SOUND button and countdown.
+- Added a real HTML audio fallback that begins during the user tap and takes over when the page is hidden/phone is locked, then hands back to the original oscillator when the app is visible again.
+- Added Media Session metadata/stop handling where supported.
+
+Important platform limitation:
+Screen-lock/background playback is best-effort in a web/PWA environment. It cannot keep playing after the browser/PWA is force-closed or the operating system terminates the app process.
+
+No Tone frequency library content, names, claims, or foreground synthesis behavior was otherwise changed in this patch.

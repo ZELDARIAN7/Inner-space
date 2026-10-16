@@ -1,0 +1,13 @@
+INNER SPACE V54.2.1 — UNWIND PACING FIX
+
+Built directly from V54.2.
+
+FIXED
+- Unwind no longer leaves a very long dead gap after each spoken paragraph.
+- Each Unwind body area now has two short follow-up guide cues.
+- Follow-up cues begin about 4.2 seconds after the previous spoken cue finishes.
+- ElevenLabs follow-up lines and the next section are preloaded while the current line is playing, reducing API-generation silence.
+- Next / Voice off / leaving the mode still cancels pending narration safely.
+- Pause pauses the voice and the follow-up pacing.
+- No Room redesign or other mode changes in this patch.
+- Service worker cache version bumped so an installed app does not keep serving V54.2.

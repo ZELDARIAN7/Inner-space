@@ -1,0 +1,15 @@
+INNER SPACE V54.2.6
+
+Cleanup build based on V54.2.5.
+
+FIXED
+- Back to Here preview no longer prints raw <span>/<i>/<b> markup.
+- Before I Go no longer mixes the same generic filler lines into every situation.
+- All seven Before I Go situations have their own authored cue set and cleaner carry line.
+- Before I Go preloads upcoming ElevenLabs lines and keeps its Room sound context alive while the session is active.
+- Decide gets the same background-audio keepalive and voice preloading.
+- Affirmations rewritten across all ten categories with shorter, more grounded, positive-only lines.
+- Service-worker cache bumped so an installed app does not keep V54.2.5.
+
+NOTE
+Brian requires the server build with ElevenLabs configured. A standalone HTML file can only fall back to the browser/device voice because /api/voice does not exist when the file is opened by itself.

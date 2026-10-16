@@ -1,0 +1,19 @@
+INNER SPACE V53.4 — PC MEDITATE + AUDIO CONTROL FIX
+
+Built directly from V53.3.
+
+Changes requested:
+- Desktop meditation shelves are compact vertical lists instead of oversized horizontal bars.
+- Desktop meditation library no longer depends on dragging the right-side cards.
+- Guided player is compact enough to keep the orb, guidance, and controls visible in a normal PC viewport.
+- Fixed ElevenLabs cancellation race: pressing Next/Back/Pause can cancel Brian even while the audio request is still downloading, preventing the previous line from starting late or speaking over the new line.
+- Affirmation cadence tightened from 7 seconds to 5 seconds per phrase start.
+- Affirmations explicitly run as a continuous infinite loop; 1h/2h buttons are timeline windows, not an ending.
+- Affirmation player vertical spacing reduced on desktop.
+- Added 8 guided meditations: Calm the Nerves, Build Self-Trust, Let It Loosen, Deep Focus Entry, Evening Release, Kindness Toward Yourself, Clear Decision, Twenty Minutes of Presence.
+- V53.3 Adept Remote Viewing session preserved.
+- Room implementation untouched.
+
+Checks:
+- HTML inline JavaScript syntax check: pass.
+- Server tests: 58 passed, 0 failed.
