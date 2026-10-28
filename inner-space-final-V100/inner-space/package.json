@@ -1,0 +1,6 @@
+{
+  "name": "inner-space",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": { "start": "node server/server.js" }
+}
