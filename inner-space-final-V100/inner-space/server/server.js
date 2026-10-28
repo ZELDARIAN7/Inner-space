@@ -19,6 +19,9 @@ import { synthesizeVoice, warmVoice, voiceGateInfo, voiceConfigured, voiceInfo, 
 import { ORCHESTRATOR_SYSTEM, buildOrchestratorMessage, buildMeaningfulContext, resolveSafety, normalizeText, SAFETY_FALLBACK, validateDecision, cleanHistory } from "./orchestrator.js";
 import { SHIFT_SYSTEM, SHIFT_KINDS, buildShiftMessage, validateShift } from "./shift.js";
 import zlib from "node:zlib";
+import { AsyncLocalStorage } from "node:async_hooks";
+/* V101: every request carries the app's language (x-lang), so every AI answer comes back in it — the Warrior, the Mirror, the Shadow, Talk, all of them */
+const REQ = new AsyncLocalStorage();
 import { clientIp, takeAi, canVoice, spendVoice, guardInfo, isAdmin, LIMITS } from "./guard.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -36,7 +39,10 @@ const FEELINGS = new Set(["I feel lost","I need clarity","I need confidence","I 
 const MODES = new Set(["guide","talk","shift"]);
 
 const AI_ROUTES = new Set(["/api/orchestrate","/api/shift","/api/mirror","/api/guide/warrior","/api/deep-session","/api/talk","/api/shadow","/api/translate","/api/origin/today","/api/origin/thread"]);
-http.createServer(async (req, res) => {
+http.createServer((req, res) => REQ.run({ lang: String(req.headers["x-lang"] || "").slice(0, 2).toLowerCase() }, () => route(req, res))).listen(PORT, () => {
+  started();
+});
+async function route(req, res) {
   try {
     res.setHeader("x-content-type-options", "nosniff"); res.setHeader("referrer-policy", "same-origin");
     /* deploy: a fair share of the AI for every person (see guard.js) */
@@ -66,7 +72,8 @@ http.createServer(async (req, res) => {
     if (req.method === "GET" || req.method === "HEAD") return serveStatic(req, res);
     return send(res, 405, { error: "Method not allowed" });
   } catch (err) { console.error(err); return send(res, 500, { error: "Server error" }); }
-}).listen(PORT, () => {
+}
+function started() {
   console.log(`Inner Space → http://localhost:${PORT}`);
   /* make the compressed page once at start, so the first visitor never waits for it */
   setTimeout(() => { try { const f = path.join(ROOT, "inner-space.html"); const st = fs.statSync(f); const t0 = Date.now(); packed(f, st, "br"); packed(f, st, "gzip"); console.log(`Page ready: ${(st.size/1e6).toFixed(1)} MB → br ${(PACKED.get(`${f}|${st.mtimeMs}|br`).length/1e6).toFixed(1)} MB (${Date.now()-t0} ms)`); } catch (e) { console.log("Page not found next to /server:", e.message); } }, 50);
@@ -77,7 +84,7 @@ http.createServer(async (req, res) => {
     if (r.status === "not-found") return console.log(`Voice: could not find "${r.name}" in your ElevenLabs voices. You have: ${r.available.join(", ") || "none"}.\n       Run SET-VOICE.bat and type one of those names.`);
     console.log(`Voice: ElevenLabs problem — ${r.reason}. Check the key with SET-VOICE.bat.`);
   }).catch(() => {});
-});
+}
 
 /* ---------------- /api/safety + /api/shift ---------------- */
 async function handleSafety(req, res) {
@@ -409,6 +416,9 @@ function sanitize(msg) { return String(msg || "").replace(/sk-ant-[A-Za-z0-9_\-]
    {type:"disabled"}. Try the current spelling first; if the API rejects it, switch once and remember. */
 let THINKING_OFF = (process.env.THINKING_OFF || "between_tools");
 async function askModel({ system, user, maxTokens }, retried = false) {
+  /* the app's language, for every model call: Arabic in, Arabic out */
+  try { const st = REQ.getStore(); let L = st && st.lang; if (!TR_LANGS.includes(L) && /[\u0600-\u06FF]{3}/.test(String(user || ""))) L = "ar";
+    if (L && L !== "en" && TR_LANGS.includes(L) && !String(system).includes("LANGUAGE:")) system = system + writeIn(L) + " Keep any JSON keys and fixed code values (ids, kinds, types) in English; only the words meant for the person change language."; } catch {}
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
   const started = Date.now();

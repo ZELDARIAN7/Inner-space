@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Inner Space · V54.2.9.27</title>
+<title>Inner Space · V54.2.9.28</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#040a08">
 <meta name="color-scheme" content="dark">
@@ -47754,5 +47754,139 @@ html[lang=ar] .sm89-shelf::before{letter-spacing:0;font-size:.78rem}
 .sm89.scrolled::after{opacity:1}
 
 </style>
+
+<style id="v101-css">
+/* ===================== INNER SPACE — V101 · ONE APP, TWO LANGUAGES ===================== */
+/* only English and Arabic in the menu */
+#lang-picker .lang-menu button[data-code="es"],#lang-picker .lang-menu button[data-code="hy"]{display:none!important}
+#lang-picker .lang-menu{display:none!important}
+/* the corner button shows the language you will switch to, in a warm gold, so it reads as "Arabic" / "English" */
+#lang-toggle{font-weight:600}
+#lang-toggle.v101-to-ar{font-family:'Noto Naskh Arabic','Noto Sans Arabic','Geeza Pro',serif;font-size:1.08rem!important;color:#f3d79a!important;border-color:rgba(243,215,154,.5)!important}
+#lang-toggle.v101-to-en{font-size:.78rem!important;letter-spacing:.08em!important;color:#f3d79a!important;border-color:rgba(243,215,154,.5)!important}
+#lang-toggle.v101-pulse{animation:v101ring 1.8s ease-in-out 5}
+@keyframes v101ring{0%,100%{box-shadow:0 0 0 0 rgba(243,215,154,0)}50%{box-shadow:0 0 0 7px rgba(243,215,154,.22)}}
+@media (prefers-reduced-motion:reduce){ #lang-toggle.v101-pulse{animation:none;box-shadow:0 0 0 3px rgba(243,215,154,.3)} }
+/* the first screen: two clear buttons, English · العربية */
+#is-intro .v101-lang{position:absolute;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 96px);transform:translateX(-50%);display:flex;gap:10px;z-index:5;
+  opacity:0;animation:v101in 1.2s ease 1.6s forwards;direction:ltr}
+#is-intro .v101-lang button{min-width:112px;height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(207,238,226,.28);background:rgba(8,16,14,.6);
+  color:rgba(231,245,239,.82);font:500 .92rem/1 Inter,system-ui,sans-serif;letter-spacing:.04em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#is-intro .v101-lang button[lang=ar]{font-family:'Noto Naskh Arabic','Noto Sans Arabic','Geeza Pro',serif;font-size:1.05rem;letter-spacing:0}
+#is-intro .v101-lang button.on{border-color:rgba(243,215,154,.7);color:#f6e2b2;background:rgba(243,215,154,.1);box-shadow:0 0 22px rgba(243,215,154,.14)}
+#is-intro .ii-gate.ii-gone .v101-lang{display:none}
+@keyframes v101in{to{opacity:1}}
+
+</style>
+<script id="v101-js">
+/* ===================== INNER SPACE — V101 · ONE APP, TWO LANGUAGES =====================
+   1 · every request to the server says which language the app is in (x-lang), so every AI answer —
+       the Warrior's chat, the Mirror, the Shadow, Talk — comes back in Arabic when the app is in Arabic.
+   2 · only English and Arabic: Spanish and Armenian are put away for now.
+   3 · the language is easy to find: two buttons on the very first screen, and the corner button switches
+       straight to the other language in one tap (it shows the one you will get).
+   4 · switching the language while a room is open redraws that room (Story Mode, Godly, Music, the Guardian…),
+       including a story's opening page — a story already playing just carries on in the new language. */
+(function(){
+'use strict';
+const LS=(k,d)=>{ try{ const v=localStorage.getItem(k); return v==null?d:v; }catch{ return d; } };
+const SS=(k,v)=>{ try{ localStorage.setItem(k,v); }catch{} };
+const lang=()=>{ try{ return (window.InnerSpaceLang&&InnerSpaceLang.get())||(document.documentElement.lang||'en').slice(0,2); }catch{ return 'en'; } };
+const setLang=l=>{ try{ window.InnerSpaceLang&&InnerSpaceLang.set(l); }catch{} };
+
+/* ---- 1 · the server hears the language ---- */
+try{
+  const of=window.fetch;
+  window.fetch=function(input,init){
+    try{
+      const url=typeof input==='string'?input:(input&&input.url)||'';
+      const same=url.startsWith('/')||url.startsWith(location.origin);
+      if(same&&/\/api\//.test(url)){
+        init=Object.assign({},init||{});
+        const h=new Headers(init.headers||(typeof input!=='string'&&input.headers)||undefined);
+        h.set('x-lang',lang()==='ar'?'ar':'en'); init.headers=h;
+      }
+    }catch(e){}
+    return of.call(this,input,init);
+  };
+}catch(e){}
+
+/* ---- 2 · English and Arabic only ---- */
+function onlyTwo(){ const l=lang(); if(l!=='en'&&l!=='ar') setLang('en'); }
+
+/* ---- 3a · the corner button: one tap, the other language ---- */
+function label(){
+  const b=document.getElementById('lang-toggle'); if(!b) return;
+  const toAr=lang()!=='ar'; const want=toAr?'ع':'EN';
+  if(b.textContent!==want) b.textContent=want;
+  b.setAttribute('aria-label',toAr?'العربية — Arabic':'English — الإنجليزية'); b.title=toAr?'العربية':'English';
+  b.classList.toggle('v101-to-ar',toAr); b.classList.toggle('v101-to-en',!toAr);
+}
+document.addEventListener('click',e=>{
+  const b=e.target&&e.target.closest&&e.target.closest('#lang-toggle'); if(!b) return;
+  e.preventDefault(); e.stopImmediatePropagation();
+  setLang(lang()==='ar'?'en':'ar'); setTimeout(label,0); pulse(false);
+},true);
+function watchButton(){ const b=document.getElementById('lang-toggle'); if(!b||b.__v101) return; b.__v101=1; label();
+  new MutationObserver(()=>{ if(b.textContent!==(lang()==='ar'?'EN':'ع')) label(); }).observe(b,{childList:true,characterData:true,subtree:true}); }
+/* a soft ring around it, the first few times, so nobody misses it */
+function pulse(on){ const b=document.getElementById('lang-toggle'); if(!b) return; b.classList.toggle('v101-pulse',!!on); }
+function firstVisits(){ const n=+LS('innerspace.v101.langhint','0')||0; if(n>=3) return; SS('innerspace.v101.langhint',String(n+1)); pulse(true); setTimeout(()=>pulse(false),9000); }
+
+/* ---- 3b · the first screen: choose your language before you enter ---- */
+const GATE={en:{t:'Touch to enter',q:'Enter quietly',s:'Skip',h:'Best with sound'},ar:{t:'المس للدخول',q:'ادخل بهدوء',s:'تخطَّ',h:'أفضل مع الصوت'}};
+function gateRow(){
+  const ov=document.getElementById('is-intro'); const gate=ov&&ov.querySelector('.ii-gate'); if(!gate||gate.querySelector('.v101-lang')) return;
+  const row=document.createElement('div'); row.className='v101-lang'; row.setAttribute('data-no-i18n',''); row.setAttribute('role','radiogroup'); row.setAttribute('aria-label','Language · اللغة');
+  [['en','English'],['ar','العربية']].forEach(([code,name])=>{ const b=document.createElement('button'); b.type='button'; b.dataset.code=code; b.lang=code; b.dir=code==='ar'?'rtl':'ltr'; b.textContent=name; b.setAttribute('role','radio');
+    const stop=e=>{ e.stopPropagation(); };
+    ['pointerdown','touchstart','mousedown'].forEach(ev=>b.addEventListener(ev,stop,{passive:true}));
+    b.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); setLang(code); SS('innerspace.v101.chosen','1'); paintGate(); });
+    row.appendChild(b); });
+  gate.appendChild(row); paintGate();
+}
+function paintGate(){
+  const ov=document.getElementById('is-intro'); if(!ov) return; const g=ov.querySelector('.ii-gate'); if(!g) return; const L=GATE[lang()==='ar'?'ar':'en'];
+  const t=g.querySelector('.ii-t'), q=g.querySelector('.ii-quiet'), s=ov.querySelector('.ii-skip');
+  if(t) t.textContent=L.t; if(q) q.textContent=L.q; if(s) s.textContent=L.s;
+  const h=ov.querySelector('.g63-hint span'); if(h) h.textContent=L.h;
+  g.querySelectorAll('.v101-lang button').forEach(b=>{ const want=b.dataset.code==='ar'?'العربية':'English'; if(b.textContent!==want) b.textContent=want; });
+  g.querySelectorAll('.v101-lang button').forEach(b=>{ const on=b.dataset.code===(lang()==='ar'?'ar':'en'); b.classList.toggle('on',on); b.setAttribute('aria-checked',String(on)); });
+}
+
+/* ---- 4 · a language change redraws the room you are in ---- */
+const SELF=new Set(['tone','room','origin','sky','year','compare','thread','design','origin-all','voice','voice-sound','voice-session','voice-journey','guides','breather','breath-atlas','breath-tech','breath-paths','breath-hold']);
+const LIVE=new Set(['breath-practice','breath-coach','breath-now','sit','sitplay','justsit','deep','affirm','v50med','guardian-drill','shadow','talk','warrior','adept','decision','mirror','map','calm','release','focus','ground','clarity','space','path','guide','shift','table','table-food']);
+let lastOpts={};
+(function hook(){ const L=typeof Layer!=='undefined'?Layer:null; if(!L){ addEventListener('load',hook); return; } if(L.__v101) return; L.__v101=1;
+  const o=L.open; L.open=function(name,opts){ lastOpts=opts||{}; return o.apply(this,arguments); }; })();
+const typed=()=>{ const st=document.getElementById('layer-stage'); if(!st) return false; return [...st.querySelectorAll('input[type=text],input:not([type]),textarea')].some(i=>i.value&&i.value.trim()); };
+let langT=0;
+addEventListener('innerspace:langchanged',()=>{ clearTimeout(langT); langT=setTimeout(()=>{
+  try{ label(); paintGate(); }catch(e){}
+  try{
+    const L=typeof Layer!=='undefined'?Layer:null; const cur=L&&L.current; if(!cur) return;
+    if(document.documentElement.classList.contains('gb98-open')) return;          /* the instruments frame keeps the language it opened in */
+    const V=window.__v90, sp=V&&V.cur&&V.cur();
+    if(sp){                                                                      /* a story or ritual is open over the room */
+      if(sp.playing||(sp.ov&&sp.ov.classList&&sp.ov.classList.contains('playing'))) return;                                                     /* playing: its next lines are already in the new language */
+      const id=sp.story&&sp.story.id; const from=cur;
+      if(SELF.has(from)||LIVE.has(from)){ try{ sp.close(true); }catch(e){} setTimeout(()=>{ try{ V.openStory(id); }catch(e){} },120); return; }
+      L.open(from,lastOpts); setTimeout(()=>{ try{ V.openStory(id); }catch(e){} },260); return;
+    }
+    if(SELF.has(cur)||LIVE.has(cur)||typed()) return;
+    L.open(cur,lastOpts);
+  }catch(e){ console.warn('[v101] lang',e); }
+},140); });
+
+function boot(){ onlyTwo(); watchButton(); gateRow(); paintGate(); }
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+new MutationObserver(()=>{ watchButton(); gateRow(); }).observe(document.documentElement,{childList:true,subtree:false});
+setTimeout(boot,600); setTimeout(boot,2000);
+/* the first few visits: once the home appears, the corner button glows for a moment */
+let hinted=false; const homeWatch=setInterval(()=>{ if(hinted) return clearInterval(homeWatch); const h=document.querySelector('#s-session.on'); const intro=document.getElementById('is-intro'); if(h&&(!intro||intro.classList.contains('ii-out'))){ hinted=true; firstVisits(); } },700);
+})();
+
+</script>
 </body>
 </html>
