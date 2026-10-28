@@ -47604,8 +47604,21 @@ s+ZEn9e9M5xPbViVNumYzbHwTGfe0OTSzKhIwsjKAwAhPlxjQdy2bX9VDTVVnsKmoinAQfDak7SfzIdW
     o.classList.remove('on');
     setTimeout(()=>{ try{ if(f) f.srcdoc='about:blank'; }catch(e){} o.remove(); },460);
   }
+  /* V102 · the keyboard plays the instruments: the frame takes the keys the moment it opens, and if anything
+     outside it has the focus, a key pressed is handed to the instruments instead of being lost */
+  function focusFrame(){ try{ if(frame){ frame.focus({preventScroll:true}); frame.contentWindow&&frame.contentWindow.focus(); } }catch(e){} }
+  const KEYFWD=e=>{
+    if(!ov||!frame||!ov.classList.contains('ready')) return;
+    if(document.activeElement===frame) return;
+    const w=frame.contentWindow; if(!w||!w.KeyboardEvent) return;
+    try{ const ev=new w.KeyboardEvent(e.type,{key:e.key,code:e.code,location:e.location,repeat:e.repeat,shiftKey:e.shiftKey,ctrlKey:e.ctrlKey,altKey:e.altKey,metaKey:e.metaKey,bubbles:true,cancelable:true});
+      (w.document.activeElement||w.document.body).dispatchEvent(ev); }catch(x){}
+    if(!(e.ctrlKey||e.metaKey||e.altKey)) e.preventDefault(); e.stopPropagation();
+    if(e.type==='keyup') focusFrame();
+  };
+  addEventListener('keydown',KEYFWD,true); addEventListener('keyup',KEYFWD,true);
   addEventListener('message',e=>{ const d=e.data; if(!d||!d.globo||!frame||e.source!==frame.contentWindow) return;
-    if(d.type==='ready'&&ov) ov.classList.add('ready');
+    if(d.type==='ready'&&ov){ ov.classList.add('ready'); focusFrame(); }
     else if(d.type==='close') close(); });
   /* the frame is gone when the room is left any other way */
   try{ const L=Layer; if(L&&L.open&&!L.__gb98){ const o0=L.open.bind(L); L.open=function(){ if(ov) close(); return o0.apply(this,arguments); }; L.__gb98=1; } }catch(e){}

@@ -1,4 +1,4 @@
-const VERSION = 'inner-space-v101-1';
+const VERSION = 'inner-space-v101-2';
 const asset = p => new URL(p, self.registration.scope).toString();
 const SHELL = [
   asset('./'),
